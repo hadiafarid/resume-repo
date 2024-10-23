@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Resume Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            padding: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .resume-preview {
+            margin-top: 40px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .resume-preview h3 {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .resume-section {
+            margin-bottom: 30px;
+        }
+
+        .resume-section h4 {
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .resume-section p {
+            margin-bottom: 5px;
+        }
+
+        .resume-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .resume-header h2 {
+            margin-bottom: 5px;
+        }
+
+        .resume-header p {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .editable {
+            border: 1px dashed #007bff;
+            padding: 5px;
+            background-color: #fffbe6;
+            cursor: text;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Editable Resume Builder</h1>
+
+        <!-- Form for resume input -->
+        <div class="form-container">
+            <h2>Enter Your Details</h2>
+            <form id="resumeForm">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" placeholder="Enter your phone number" required>
+
+                <label for="address">Address:</label>
+                <textarea id="address" rows="2" placeholder="Enter your address"></textarea>
+
+                <label for="objective">Professional Objective:</label>
+                <textarea id="objective" rows="3" placeholder="Write your professional objective"></textarea>
+
+                <label for="education">Education:</label>
+                <textarea id="education" rows="3" placeholder="List your educational qualifications"></textarea>
+
+                <label for="skills">Skills:</label>
+                <textarea id="skills" rows="3" placeholder="List your skills"></textarea>
+
+                <label for="experience">Experience:</label>
+                <textarea id="experience" rows="4" placeholder="Describe your work experience"></textarea>
+
+                <label for="projects">Projects:</label>
+                <textarea id="projects" rows="3" placeholder="Highlight some projects you have worked on"></textarea>
+
+                <button type="button" onclick="generateResume()">Generate Resume</button>
+            </form>
+        </div>
+
+        <!-- Resume Preview Section -->
+        <div class="resume-preview">
+            <div id="resumeOutput"></div>
+        </div>
+    </div>
+
+    <script>
+        // Function to generate resume dynamically
+        function generateResume() {
+            // Get form values
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const objective = document.getElementById('objective').value;
+            const education = document.getElementById('education').value;
+            const skills = document.getElementById('skills').value;
+            const experience = document.getElementById('experience').value;
+            const projects = document.getElementById('projects').value;
+
+            // Constructing the resume output HTML with editable fields
+            const resumeContent = `
+                <div class="resume-header">
+                    <h2 contenteditable="true" class="editable">${fullName}</h2>
+                    <p contenteditable="true" class="editable">${email} | ${phone} | ${address}</p>
+                </div>
+                <div class="resume-section">
+                    <h4>Professional Objective</h4>
+                    <p contenteditable="true" class="editable">${objective}</p>
+                </div>
+                <div class="resume-section">
+                    <h4>Education</h4>
+                    <p contenteditable="true" class="editable">${education}</p>
+                </div>
+                <div class="resume-section">
+                    <h4>Skills</h4>
+                    <p contenteditable="true" class="editable">${skills}</p>
+                </div>
+                <div class="resume-section">
+                    <h4>Experience</h4>
+                    <p contenteditable="true" class="editable">${experience}</p>
+                </div>
+                <div class="resume-section">
+                    <h4>Projects</h4>
+                    <p contenteditable="true" class="editable">${projects}</p>
+                </div>
+            `;
+
+            // Display the generated resume in the preview section
+            document.getElementById('resumeOutput').innerHTML = resumeContent;
+        }
+    </script>
+
+</body>
+</html>
