@@ -2,103 +2,150 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-container {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .resume-preview {
+            margin-top: 40px;
+        }
+
+        #resumeOutput {
+            padding: 20px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
-    <h1> Shareable Resume Generator</h1>
-    <p style="text-align: center;">
-        <b>By Hadiya Farid</b>
-    </p>
-    <form id="resume-form">
-        <fieldset>
-    <legend> Personal Information</legend>
-    <label for="username"> Username:</label>
-    <input type="text"
-    id="username"
-    placeholder="Enter Your Username"
-    required>
 
+    <div class="container">
+        <h1>Resume Builder</h1>
 
-    <label for="email">Email:</label>
-    <input type="email"
-           id="email"
-           placeholder="Enter your Email"
-           required>
+        <!-- Form to input resume details -->
+        <div class="form-container">
+            <h2>Fill Your Details</h2>
+            <form id="resumeForm">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" placeholder="Enter your full name" required>
 
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
 
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" placeholder="Enter your phone number" required>
 
-    <label for="phone"> Phone:</label>
-     <input type="tel"
-            id="phone"
-            placeholder="Enter your phone Number"
-            required>
-        </fieldset>  
-        
-        
+                <label for="address">Address:</label>
+                <textarea id="address" rows="2" placeholder="Enter your address"></textarea>
 
-        <fieldset>
-            <legend>Education</legend>
-            <label for="education"> Education:</label>
-            <textarea id="education"
-            placeholder="Enteryou Education"
-            rows="4"
-            required></textarea>
-        </fieldset>
+                <label for="education">Education:</label>
+                <textarea id="education" rows="3" placeholder="List your educational qualifications"></textarea>
 
+                <label for="skills">Skills:</label>
+                <textarea id="skills" rows="3" placeholder="List your skills"></textarea>
 
-        <fieldset>
-            <legend>Experience</legend>
-            <label for="Experience">Experience:</label>
-            <textarea
-            id="Experience"
-            placeholder="Enter your Experience"
-            rows="4"
-            required></textarea>
-        </fieldset>
+                <label for="experience">Experience:</label>
+                <textarea id="experience" rows="4" placeholder="Describe your work experience"></textarea>
 
-        <fieldset>
-            <legend>Skills</legend>
-            <label for="skills">Skills:</label>
-            <textarea
-            id="Skills"
-            placeholder="Enter your Skills"
-            rows="4"
-            required></textarea>
-        </fieldset>
+                <button type="button" onclick="generateResume()">Generate Resume</button>
+            </form>
+        </div>
 
-
-       
-            <button type="submit">
-            <b>Generate Resume</b>
-        </button>
-    </form>
-
-
-<br>
-<div id="resume display"
-contenteditable="true"></div>
-
-
-<br>
-
-      <div id="shareable-link-container"
-      style="display: none;">
-      
-      
-
-      <h2>Shareable Link</h2>
-      <p>You can review or edit your resume link provided here</p>
-      <a href="#"
-      id="shareable-link"
-      target="_blank"></a>
-      <br>
-      <button
-      id="download-pdf"> 
-      <b>Download as Pdf</b>
-      </button>
+        <!-- Preview of generated resume -->
+        <div class="resume-preview">
+            <h2>Resume Preview</h2>
+            <div id="resumeOutput"></div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Function to generate the resume dynamically
+        function generateResume() {
+            // Getting values from form inputs
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const education = document.getElementById('education').value;
+            const skills = document.getElementById('skills').value;
+            const experience = document.getElementById('experience').value;
+
+            // Creating the output HTML structure
+            const resumeContent = `
+                <h3>${name}</h3>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Address:</strong> ${address}</p>
+                <h4>Education</h4>
+                <p>${education}</p>
+                <h4>Skills</h4>
+                <p>${skills}</p>
+                <h4>Experience</h4>
+                <p>${experience}</p>
+            `;
+
+            // Displaying the generated resume in the preview area
+            document.getElementById('resumeOutput').innerHTML = resumeContent;
+        }
+    </script>
+
 </body>
 </html>
